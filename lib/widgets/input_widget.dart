@@ -149,7 +149,7 @@ class _InputWidgetState extends State<InputWidget> {
   String? email;
   final help = <String>[
     'Hey Welcome,Please Enter Your Name,',
-    'Hey .. Enter User name',
+    '',
     'Finally Enter mail adress',
   ];
 
@@ -164,52 +164,35 @@ class _InputWidgetState extends State<InputWidget> {
 
     for (var i = 0; i < 3; i++) {
       prf.add(
-        Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: Text(
-                  help[i],
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SizedBox(
+            width: size.width * .8,
+            child: Form(
+              key: _key[i],
+              child: TextFormField(
+                validator: (page) {
+                  if (page!.isEmpty)
+                    return 'Can not be null';
+                  else {
+                    return null;
+                  }
+                },
+                focusNode: node[i],
+                autofocus: true,
+                controller: _controller[i],
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    _iconsData[i],
+                    color: Colors.orange,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              SizedBox(height: 40.0),
-              SizedBox(
-                width: size.width * .7,
-                child: Form(
-                  key: _key[i],
-                  child: TextFormField(
-                    validator: (page) {
-                      if (page!.isEmpty)
-                        return 'Can not be null';
-                      else {
-                        return null;
-                      }
-                    },
-                    focusNode: node[i],
-                    autofocus: true,
-                    controller: _controller[i],
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        _iconsData[i],
-                        color: Colors.orange,
-                      ),
-                      labelText: p[i],
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
+                  labelText: p[i],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
               ),
-            ],
+            ),
           ),
         ),
       );
@@ -237,7 +220,27 @@ class _InputWidgetState extends State<InputWidget> {
                     controller: _pageController!,
                     itemBuilder: (context, index) {
                       FocusScope.of(context).requestFocus(node[currentPage]);
-                      return profile![index];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                              currentPage == 1
+                                  ? 'Hey $currentName Enter User name'
+                                  : help[currentPage],
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          profile![currentPage],
+                        ],
+                      );
                     },
                   );
                 } else {
