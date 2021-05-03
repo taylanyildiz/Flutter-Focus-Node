@@ -220,26 +220,29 @@ class _InputWidgetState extends State<InputWidget> {
                     controller: _pageController!,
                     itemBuilder: (context, index) {
                       FocusScope.of(context).requestFocus(node[currentPage]);
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              currentPage == 1
-                                  ? 'Hey $currentName Enter User name'
-                                  : help[currentPage],
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
+                      return Container(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10.0),
+                              child: Text(
+                                currentPage == 1
+                                    ? 'Hey $currentName Enter User name'
+                                    : help[currentPage],
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-                          profile![currentPage],
-                        ],
+                            profile![currentPage],
+                          ],
+                        ),
                       );
                     },
                   );
