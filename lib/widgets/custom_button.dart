@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
   final Function? onPressed;
 
   void _handleChangePage(BuildContext context) {
-    InputWidget.of(context)!.nextPage();
+    InputWidget.of(context)!.nextPage(context);
   }
 
   @override
@@ -23,7 +23,7 @@ class CustomButton extends StatelessWidget {
         child: MaterialButton(
           onPressed: () => _handleChangePage(context),
           child: Text(
-            'Next Page',
+            'Next',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20.0,

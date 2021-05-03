@@ -1,5 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:focus_scope_exam/widgets/custom_button.dart';
+import 'package:focus_scope_exam/screens/screen.dart';
+
+Route _createRoute(Widget child) => PageRouteBuilder(
+      transitionDuration: Duration(seconds: 2),
+      pageBuilder: (context, animation, secondaryAnimation) => child,
+      transitionsBuilder: (context, aniamtion, secondaryAnimation, child) =>
+          AnimatedBuilder(
+        animation: aniamtion,
+        child: child,
+        builder: (context, child) => ShaderMask(
+          shaderCallback: (rect) => RadialGradient(
+            radius: aniamtion
+                .drive(Tween(begin: 0.0, end: 2.5)
+                    .chain(CurveTween(curve: Curves.linear)))
+                .value,
+            center: FractionalOffset(0.9, 0.9),
+            stops: [0.0, 1.0, 0.0, 0.0],
+            colors: [
+              Colors.white,
+              Colors.white,
+              Colors.transparent,
+              Colors.transparent,
+            ],
+          ).createShader(rect),
+          child: child,
+        ),
+      ),
+    );
 
 class _InputScope extends InheritedWidget {
   _InputScope({
@@ -36,13 +64,23 @@ class _InputWidgetState extends State<InputWidget> {
   final _key = <GlobalKey<FormState>>[];
 
   final node = <FocusNode>[];
-  void nextPage() async {
+  void nextPage(BuildContext context) async {
     final check = _key[currentPage].currentState!.validate();
 
     if (check) {
       final page = _controller[currentPage].text;
       await checkController(page);
-      if (currentPage < 2) currentPage++;
+      print('page : $currentPage');
+      if (currentPage < 2) {
+        currentPage++;
+      } else {
+        await Future.delayed(Duration(milliseconds: 200),
+            () => FocusScope.of(context).unfocus());
+        Navigator.push(
+            context,
+            _createRoute(
+                DetailScreen(mail: email, name: currentName, user: userName)));
+      }
     }
 
     _pageController!.animateToPage(

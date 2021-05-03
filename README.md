@@ -2,9 +2,9 @@
 
 Form and TextFormField widget how tow use by using FocusNode and InheritedWiget.
 
-|              App Splash             |             App Home                 |
-| :----------------------------------: | :----------------------------------: |
-| <a  target="_blank"><img src="https://user-images.githubusercontent.com/37551474/116798125-3baf8480-aaf5-11eb-85b4-7998baee79f4.gif" width="350"></a> | <a  target="_blank"><img src="https://user-images.githubusercontent.com/37551474/116798202-eaec5b80-aaf5-11eb-9de1-2844f001a994.gif" width="350"></a> |
+|             App Home               |
+:----------------------------------: |
+| <a  target="_blank"><img src="https://user-images.githubusercontent.com/37551474/116866941-d81c7880-ac14-11eb-97b3-2b77b4676282.gif" width="250"></a>|
 
 
 ## Getting Started
